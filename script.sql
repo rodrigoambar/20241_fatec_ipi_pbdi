@@ -1,3 +1,21 @@
+DO $$
+DECLARE
+	valor INT := fn_gera_valor_aleatorio_entre(1, 12);
+	mensagem VARCHAR(200);
+BEGIN
+	RAISE NOTICE 'Valor gerada: %', valor;
+	CASE valor
+	WHEN 1, 3, 5, 7, 9 THEN
+		mensagem := 'ímpar';
+	WHEN 2, 4,6, 8, 10 THEN
+		mensagem := 'par';
+	ELSE
+		mensagem := 'Fora do intervalo';
+	END CASE;
+	RAISE NOTICE 'O valor gerado foi %', mensagem;
+	END;
+	$$
+
 -- Active: 1714478827335@@127.0.0.1@5432@20241_fatec_ipi_pbdi_selecao@public
 -- equação de segundo grau
 -- if/elsif/ else
@@ -82,15 +100,15 @@ DO $$
 --     END;
 -- 	$$
  
--- CREATE OR REPLACE FUNCTION
---     fn_gera_valor_aleatorio_entre(
---         lim_inferior INT,
---         lim_superior INT
---     ) RETURNS INT AS $$
---     BEGIN
---     -- 13 e 17
---     -- RANDOM () --0 <= RANDOM() < 1
---     -- 13 + RANDOM() * 4
---     RETURN lim_inferior + FLOOR(RANDOM() * (lim_superior - lim_inferior + 1))::INT;
---     END;
---     $$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION
+    fn_gera_valor_aleatorio_entre(
+        lim_inferior INT,
+        lim_superior INT
+    ) RETURNS INT AS $$
+    BEGIN
+    -- 13 e 17
+    -- RANDOM () --0 <= RANDOM() < 1
+    -- 13 + RANDOM() * 4
+    RETURN lim_inferior + FLOOR(RANDOM() * (lim_superior - lim_inferior + 1))::INT;
+    END;
+    $$ LANGUAGE plpgsql;
